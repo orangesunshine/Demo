@@ -1,0 +1,37 @@
+transaction.add()
+往Activity中添加一个Fragment
+
+transaction.remove()
+从Activity中移除一个Fragment，如果被移除的Fragment没有添加到回退栈（回退栈后面会详细说），这个Fragment实例将会被销毁。
+
+transaction.replace()
+使用另一个Fragment替换当前的，实际上就是remove()然后add()的合体~ 如果不添加事务到回退栈，前一个Fragment实例会被销毁
+
+transaction.hide()
+隐藏当前的Fragment，仅仅是设为不可见，并不会销毁
+
+transaction.show()
+显示之前隐藏的Fragment
+
+detach()
+会将view从UI中移除,和remove()不同,此时fragment的状态依然由FragmentManager维护。
+
+attach()
+重建view视图，附加到UI上并显示。
+
+a、比如：我在FragmentA中的EditText填了一些数据，当切换到FragmentB时，如果希望会到A还能看到数据，则适合你的就是hide和show；也就是说，希望保留用户操作的面板，你可以使用hide和show，当然了不要使劲在那new实例，进行下非null判断。
+b、再比如：我不希望保留用户操作，你可以使用remove()，然后add()；或者使用replace()这个和remove,add是相同的效果。
+c、remove和detach有一点细微的区别，在不考虑回退栈的情况下，remove会销毁整个Fragment实例，而detach则只是销毁其视图结构，实例并不会被销毁。那么二者怎么取舍使用呢？如果你的当前Activity一直存在，那么在不希望保留用户操作的时候，你可以优先使用detach。
+
+
+    tx.remove(fm.findFragmentById(R.layout.fragment_one));//error
+    tx.remove(getTargetFragment());//error
+    tx.remove(fm.findFragmentByTag("ONE"));//right
+    tx.add(R.id.id_content,fTwo);
+
+
+2、Fragment与Activity通信
+因为所有的Fragment都是依附于Activity的，所以通信起来并不复杂，大概归纳为：
+a、如果你Activity中包含自己管理的Fragment的引用，可以通过引用直接访问所有的Fragment的public方法
+b、如果Activity中未保存任何Fragment的引用，那么没关系，每个Fragment都有一个唯一的TAG或者ID,可以通过getFragmentManager.findFragmentByTag()获得任何Fragment实例，然后进行操作。
+c、在Fragment中可以通过getActivity得到当前绑定的Activity的实例，然后进行操作。

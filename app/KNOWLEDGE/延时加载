@@ -1,0 +1,15 @@
+1.adb shell am start -W -n [PackageName]/[PackageName.MainActivity]
+
+2.Application#onCreate()--Debug.startMethodTracing("/sdcard/dmtrace.trace");
+  MainActivity#onResume()--Debug.stopMethodTracing();
+
+3.延时加载
+第一种写法:直接PostDelay 300ms.
+myHandler.postDelayed(mLoadingRunnable, DEALY_TIME);
+第二种写法:优化的DelayLoad
+getWindow().getDecorView().post(new Runnable() {
+  @Override
+ public void run() {
+      myHandler.post(mLoadingRunnable);
+ }
+});

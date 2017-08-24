@@ -1,0 +1,8 @@
+1.apktool
+apktool d xxx.apk
+获取资源
+
+2.将要反编译的APK后缀名改为.rar或则 .zip，并解压，得到其中的额classes.dex文件（它就是java文件编译再通过dx工具打包而成的），将获取到的classes.dex放到之前解压出来的工具dex2jar-0.0.9.15 文件夹内，
+  在命令行下定位到dex2jar.bat所在目录，输入dex2jar.bat   classes.dex
+
+3.工具jd-gui文件夹里的jd-gui.exe，之后用该工具打开之前生成的classes_dex2jar.jar文件，便可以看到源码了

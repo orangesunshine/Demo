@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/annotation/Gender.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/annotation/Person.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/classload/ClassLoaderProTest.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/classload/CompileClassLoader.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/classload/Hello.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/reflect/test/InitialTest.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/reflect/test/RTTITest.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/thinkinjava/FieldAccess.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/thinkinjava/InitTest.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/java/src/main/java/com/example/thinkinjava/StaticPolymorphism.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/ndk/src/main/java/com/orangesunshine/ndk/LameActivity.java" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

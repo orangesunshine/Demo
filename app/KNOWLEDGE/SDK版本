@@ -1,0 +1,12 @@
+1.sdk>=23八大类敏感权限需要申请
+
+2.sdk>=17 WebView#WebSettings#获取代理
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            try {
+                userAgent = WebSettings.getDefaultUserAgent(this) + "Ebways_App";
+            } catch (Exception e) {
+                userAgent = System.getProperty("http.agent") + "Ebways_App";
+            }
+        } else {
+            userAgent = System.getProperty("http.agent") + "Ebways_App";
+        }

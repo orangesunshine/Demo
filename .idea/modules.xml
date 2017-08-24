@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Demo.iml" filepath="$PROJECT_DIR$/Demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bindview-annotation/bindview-annotation.iml" filepath="$PROJECT_DIR$/bindview-annotation/bindview-annotation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bindview-api/bindview-api.iml" filepath="$PROJECT_DIR$/bindview-api/bindview-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bindview-compiler/bindview-compiler.iml" filepath="$PROJECT_DIR$/bindview-compiler/bindview-compiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/java.iml" filepath="$PROJECT_DIR$/java/java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ndk/ndk.iml" filepath="$PROJECT_DIR$/ndk/ndk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/photoview/photoview.iml" filepath="$PROJECT_DIR$/photoview/photoview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/processor/processor.iml" filepath="$PROJECT_DIR$/processor/processor.iml" />
+    </modules>
+  </component>
+</project>

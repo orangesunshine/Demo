@@ -1,0 +1,1 @@
+include ':ndk', ':app', ':bindview-api', ':bindview-annotation', ':processor', ':bindview-compiler', ':java', ':photoview'

@@ -1,0 +1,47 @@
+依据过度绘制的层度可以分成：
+- 无过度绘制（一个像素只被绘制了一次）
+- 过度绘制x1（一个像素被绘制了两次）蓝色
+- 过度绘制x2（一个像素被绘制了三次）浅绿色
+- 过度绘制x3（一个像素被绘制了四次）淡红色
+- 过度绘制x4+（一个像素被绘制了五次以上）红色
+
+方法一：通过开发者选项开启GPU过度绘制调试
+android手机的开发者选项中有『调试 GPU 过度绘制』的选项
+
+方法二：通过adb命令开启GPU过度绘制调试
+当然，如果每次都进入系统设置嫌麻烦，可以使用adb命令进行开启和关闭：
+开启『调试 GPU 过度绘制』：
+adb shell setprop debug.hwui.overdraw show
+关闭『调试 GPU 过度绘制』：
+adb shell setprop debug.hwui.overdraw false
+
+我们只要在自己的AppTheme里面去除该背景色即可：
+<style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+    <item name="android:windowBackground">@null</item>
+</style>
+或者在Activity的onCreate方法中：
+getWindow().setBackgroundDrawable(null);
+
+检验一台手机是否开启了View Server的办法为：
+adb shell service call window 3
+若返回值是：Result: Parcel(00000000 00000000 '........')" 说明View Server处于关闭状态
+若返回值是：Result: Parcel(00000000 00000001 '........')" 说明View Server处于开启状态
+
+HierachyViewer
+检验一台手机是否开启了View Server的办法为：
+adb shell service call window 3
+若返回值是：Result: Parcel(00000000 00000000 '........')" 说明View Server处于关闭状态
+若返回值是：Result: Parcel(00000000 00000001 '........')" 说明View Server处于开启状态
+
+若是一台可以打开View Server的手机（Android开发版手机 、模拟器or 按照本帖步骤给系统打补丁的手机），我们可以使用以下命令打开View Server：
+adb shell service call window 1 i32 4939
+使用以下命令关闭View Server：
+adb shell service call window 2 i32 4939
+
+开启H Viewer的步骤如下:
+1：手机开启开发者模式, USB调试.
+2：根据手机的Android系统版本:
+4.0及以下, 没有root. 使用上述的开源工程ViewServer提供的方式.
+4.0及以下, 已经root. 无需其他额外设置.
+4.1及以上. 需要在PC端设置ANDROID_HVPROTO环境变量.
+在Windows下可以这样设置: 打开环境变量, 添加名称ANDROID_HVPRORO, 值:ddm, 点击OK.

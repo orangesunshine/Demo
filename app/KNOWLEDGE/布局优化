@@ -1,0 +1,51 @@
+1.TextView本身的属性来同时显示图片和文字
+  android:drawableLeft="@drawable/ic_launcher"
+  android:drawablePadding="10dp"
+
+  或者同样可以使用代码设置：
+  TextView textView = (TextView) findViewById(R.id.textView);
+  Drawable drawable = getResources().getDrawable(R.drawable.ic_launcher);
+  drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight()); //该方法不可少
+  textView.setCompoundDrawables(drawable, null, null, null);
+
+2.使用include实现布局重用，避免代码重复
+<include layout="@layout/header" />
+
+注意：
+  一：没有给 标签设置 id 属性，那么你直接使用 findViewById 来找 include 指定布局中控件是没有问题的。
+      一旦你为 标签设置了 id ，就不能直接把它里面的控件当成主布局文件中的控件来直接获取了，必须先获得这个 标签指定的布局文件，再通过该布局文件 findViewById 来获得其子控件。
+
+  二.如果想在 标签中覆盖被包含布局所指定的任何 android:layout_* 属性，必须在 标签中同时指定 android:layout_width 和 android:layout_height 这两个属性。
+
+
+3.使用merge标签减少布局层级结构
+注意：
+  1. 只可以作为layout 布局的根节点。
+  2.当需要扩充的xml layout本身是由merge作为根节点的话，需要将被导入的xml layout置于 viewGroup中，同时需要设置attachToRoot为True。
+  3.子视图不需要指定任何针对父视图的布局属性，例如示例中Button只需要直接添加到父视图中显示就行，这样的情况下考虑使用merge的标签。
+  4.merge标签下，子控件的数量不宜过多，否则造成布局不便。
+
+4.使用LinearLayout自带的分割线
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/divider_horizontal"
+    android:dividerPadding="10dp"
+    android:orientation="vertical"
+    android:showDividers="middle" >
+属性说明：
+  android:divider：用来定义一个drawable资源或者color作为分割线。可以设置分割线的大小宽度。
+  android:dividerPadding：设置分割线的padding距离大小。
+  android:showDividers：指定分割线的显示位置。包含：none，beginning，middle，end。
+
+注意：
+ViewStub 的 inflate() 方法显示了目标布局之后，不可以再次调用该方法
+（注意，调用了 setVisibility(View.VISIBLE) 或者 setVisibility(View.INVISIBLE) 之后也绝对不可以再调 inflate() 方法），否则提示异常信息。
+
+inflate源码
+通过阅读下面的inflate方法实现,我们将更加理解
+android:inflatedId的用途
+ViewStub在初始化后从视图层级中移除
+ViewStub的layoutParameters应用
+mInflatedViewRef通过弱引用形式,建立ViewStub与加载的View的联系.

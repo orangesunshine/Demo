@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.orange.demo"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue("string", "build_type", "release")
+        }
+
+        debug {
+            minifyEnabled false
+//            signingConfig signingConfigs.release
+            resValue("string", "build_type", "debug")
+        }
+    }
+
+    /*保持旧的eclipse文件结构
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+        androidTest.setRoot('tests')
+    }*/
+}
+
+/*在grade文件中配置，将会保存eclipse目录结构，当然，如果你有任何依赖的jar包，你需要告诉gradle它在哪儿，假设jar包会在一个叫做libs的文件夹内，那么你应该这么配置：
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}*/
+
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
+
+dependencies {
+//    compile(name: 'library-release', ext: 'aar')
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.zhy:okhttputils:2.6.2'
+//    compile project(':photoview')
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    compile 'com.zhy:mpermission-api:1.0.0'
+    apt 'com.zhy:mpermission-compiler:1.0.0'
+
+    compile "io.reactivex.rxjava2:rxjava:2.x.y"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    compile 'me.weyye.hipermission:library:1.0.7'
+
+    //Platform bindings:
+    compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    //'support-v4' library bindings:
+    compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
+    //'appcompat-v7' library bindings:
+    compile 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.0.0'
+    //'design' library bindings:
+    compile 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
+    //'recyclerview-v7' library bindings:
+    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+    //'leanback-v17' library bindings:
+//    compile 'com.jakewharton.rxbinding2:rxbinding-leanback-v17:2.0.0'
+
+//    provided 'de.robv.android.xposed:api:++'
+    //去掉in.srain.cube:cube-sdk:1.0.42.1中的包不加载即可。
+//    compile ('in.srain.cube:cube-sdk:1.0.42.1'){exclude module: 'support-v4'}
+}

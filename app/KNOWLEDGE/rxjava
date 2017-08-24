@@ -1,0 +1,12 @@
+一.介绍
+1.支持Java6+
+2.android 2.3+
+3.异步的
+4.基于观察者设计模式（Observer、Observable）不懂设计模式的可以移步到此：浅谈Java设计模式（十五）观察者模式（Observer）
+5.Subscribe (订阅)
+
+二.使用
+1.gradle依赖：compile 'io.reactivex:rxjava:1.0.14'
+              compile 'io.reactivex:rxandroid:1.0.1'
+
+2.

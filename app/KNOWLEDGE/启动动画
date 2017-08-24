@@ -1,0 +1,64 @@
+A 启动 B 时，A 从屏幕上消失，这时执行的是A的
+android:activityOpenExitAnimation
+A 启动 B 时，B 出现在屏幕上，这时执行的是B的
+android:activityOpenEnterAnimation
+从 B 返回A时，B从屏幕上消失，这时执行的是B的
+android:activityCloseExitAnimation
+从 B 返回A时，A 出现在屏幕上，这时执行的是A的
+android:activityCloseEnterAnimation
+
+activity启动的animation根据当前的activity所在的task状态有所不同，从上面的xml中的animation定义中就可以看出，它的分类：
+    ★ 如果启动的activity运行在原来的task中，那么使用animation activityOpenEnterAnimation/activityOpenExitAnimation;
+    ★ 如果启动的activity运行在新的task中，那么使用animation taskOpenEnterAnimation/taskOpenExitAnimation;
+    ★ 如果结束的activity结束之后原来的task还存在，那么使用activityCloseEnterAnimation/activityCloseExitAnimation;
+    ★ 如果结束的activity结束之后原来的task将不存在，也即次activity为task最后的activity，那么使用taskCloseEnterAnimation/taskCloseExitAnimation;
+    ★ 一些特定的情况下，AMS需要将某个task move到最前面，例如上一篇文章中的task reparenting过程，此时使用taskToFrontEnterAnimation/taskToFrontExitAnimation;
+    ★ 一些特定的情况下，AMS需要将某个task move到最底端，此时使用taskToBackEnterAnimation/taskToBackExitAnimation;
+    ★ 如果当前的activity使用的theme中的参数android:windowShowWallpaper为true，此时的activity应该以当前的壁纸为背景，并且前一个显示的activity的背景不是当前的壁纸，此时使用wallpaperOpenEnterAnimation/wallpaperOpenExitAnimation/wallpaperCloseEnterAnimation/wallpaperCloseExitAnimation
+
+1.减轻过度绘制
+默认窗体会绘制一次，主题设置<item name="android:windowBackground">@null</item>可以减少此次绘制
+带来问题一：窗体无背景，activity布局如果没有根布局背景颜色，数据加载异常或没有刷新界面没有覆盖整个屏幕则出现黑白屏（根据主题），解决设置根布局背景颜色
+   问题二：activity切换出现短暂黑白屏，解决主题设置<item name="android:windowIsTranslucent">true</item>
+   问题三：<item name="android:windowIsTranslucent">true</item>设置导致activity切换动画异常（CustomAnim--activityOpenEnterAnimation等属性设置无效，动画一直是左进左出），
+   解决<item name="android:windowAnimationStyle">@style/TranslucentAnim</item>(TranslucentAnim--parent是@android:style/Animation.Translucent)
+
+  主题设置
+  <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+          <item name="android:windowBackground">@null</item>
+          <item name="android:windowIsTranslucent">true</item>
+          <item name="android:windowAnimationStyle">@style/TranslucentAnim</item>
+   </style>
+
+   <style name="CustomAnim">
+           <item name="android:activityOpenEnterAnimation">@anim/open_enter_right</item>
+           <item name="android:activityOpenExitAnimation">@anim/open_exit_left</item>
+           <item name="android:activityCloseEnterAnimation">@anim/close_enter_left</item>
+           <item name="android:activityCloseExitAnimation">@anim/close_exit_right</item>
+
+           <item name="android:taskOpenEnterAnimation">@anim/open_enter_right</item>
+           <item name="android:taskOpenExitAnimation">@anim/open_exit_left</item>
+           <item name="android:taskCloseEnterAnimation">@anim/close_enter_left</item>
+           <item name="android:taskCloseExitAnimation">@anim/close_exit_right</item>
+
+           <item name="android:taskToFrontEnterAnimation">@anim/open_enter_right</item>
+           <item name="android:taskToFrontExitAnimation">@anim/open_exit_left</item>
+           <item name="android:taskToBackEnterAnimation">@anim/close_enter_left</item>
+           <item name="android:taskToBackExitAnimation">@anim/close_exit_right</item>
+
+           <item name="android:wallpaperOpenEnterAnimation">@anim/open_enter_right</item>
+           <item name="android:wallpaperOpenExitAnimation">@anim/open_exit_left</item>
+           <item name="android:wallpaperCloseEnterAnimation">@anim/close_enter_left</item>
+           <item name="android:wallpaperCloseExitAnimation">@anim/close_exit_right</item>
+
+           <item name="android:wallpaperIntraOpenEnterAnimation">@anim/open_enter_right</item>
+           <item name="android:wallpaperIntraOpenExitAnimation">@anim/open_exit_left</item>
+           <item name="android:wallpaperIntraCloseEnterAnimation">@anim/close_enter_left</item>
+           <item name="android:wallpaperIntraCloseExitAnimation">@anim/close_exit_right</item>
+       </style>
+
+       <style name="TranslucentAnim" parent="@android:style/Animation.Translucent">
+           <item name="android:windowEnterAnimation">@anim/open_enter_right</item>
+           <item name="android:windowExitAnimation">@anim/close_exit_right</item>
+       </style>
+
